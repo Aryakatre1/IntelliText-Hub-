@@ -4,161 +4,161 @@ A high-performance RESTful API for abstractive text summarization and sentiment 
 
 ---
 
-### Text Summarization
+## Features
 
-Generates concise, human-readable summaries of lengthy texts. It focuses on abstractive summarization, creating new sentences to capture the core meaning rather than just extracting existing ones.
-
-**Endpoint:** `POST /summarize`
-**Request Body:**
-```json
-{
-  "text": "Paste your long text here that you want to summarize. Make sure it's substantial enough for the summarization model to work effectively."
-}
-
-Certainly\! Here is the complete, comprehensive `README.md` content for your project. Please **delete all current content** in your `README.md` file in VS Code, and then **paste this entire block** into it.
-
-Make sure to **save the file (`Ctrl + S`)** after pasting.
-
-````markdown
-# FastAPI Text Analysis API
-
-A high-performance RESTful API for abstractive text summarization and sentiment analysis, built with FastAPI and powered by state-of-the-art Hugging Face Transformer models. This API allows users to send raw text and receive a concise summary or analyze its emotional tone.
+- **Text Summarization:** Generates concise, human-readable summaries of lengthy texts. It focuses on abstractive summarization, creating new sentences to capture the core meaning rather than just extracting existing ones.
+- **Sentiment Analysis:** Identifies the emotional tone (positive, negative, or neutral) of input text, returning a label and a confidence score.
+- **Analysis History (NEW in Week 3):** All summarization and sentiment analysis requests are now saved to a persistent database, allowing users to retrieve a complete history of their past analyses.
 
 ---
 
 ### Text Summarization
 
-Generates concise, human-readable summaries of lengthy texts. It focuses on abstractive summarization, creating new sentences to capture the core meaning rather than just extracting existing ones.
+Generates concise, human-readable summaries of lengthy texts.
 
 **Endpoint:** `POST /summarize`
 **Request Body:**
+
 ```json
 {
   "text": "Paste your long text here that you want to summarize. Make sure it's substantial enough for the summarization model to work effectively."
 }
-````
+Response Body (Example):
 
-**Response Body (Example):**
+JSON
 
-```json
 {
   "summary": "Your generated summary will appear here."
 }
-```
+Key Technology: Hugging Face Transformers (using sshleifer/distilbart-cnn-12-6 model).
 
-**Key Technology:** Hugging Face Transformers (using `sshleifer/distilbart-cnn-12-6` model).
+Sentiment Analysis
+The API now includes a sentiment analysis endpoint that identifies the emotional tone (positive, negative, or neutral) of input text, returning a label and a confidence score.
 
------
+Endpoint: POST /sentiment
+Request Body:
 
-### Sentiment Analysis
+JSON
 
-The API now includes a sentiment analysis endpoint that identifies the emotional tone (positive, negative, or neutral) of input text, returning a label and a confidence score. This is incredibly useful for quickly gauging the sentiment of reviews, feedback, or any textual data.
-
-**Endpoint:** `POST /sentiment`
-**Request Body:**
-
-```json
 {
   "text": "This is a fantastic product! I love it."
 }
-```
+Response Body (Example - Positive):
 
-**Response Body (Example - Positive):**
+JSON
 
-```json
 {
   "label": "POSITIVE",
   "score": 0.9998
 }
-```
+Response Body (Example - Negative):
 
-**Response Body (Example - Negative):**
+JSON
 
-```json
 {
   "label": "NEGATIVE",
   "score": 0.9972
 }
-```
+Key Technology: Hugging Face Transformers (using distilbert-base-uncased-finetuned-sst-2-english model).
 
-**Response Body (Example - Neutral/Mixed - model may still pick a dominant one):**
+Analysis History
+Retrieve a complete record of all past summarization and sentiment analysis requests, including the input text, generated output, and timestamp.
 
-```json
-{
-  "label": "POSITIVE",
-  "score": 0.5123
-}
-```
+Endpoint: GET /history
+Response Body (Example):
 
-**Key Technology:** Hugging Face Transformers (using `distilbert-base-uncased-finetuned-sst-2-english` model).
+JSON
 
------
+[
+  {
+    "id": 1,
+    "input_text": "The James Webb Space Telescope...",
+    "summary_output": "JWST is a monumental leap in space exploration...",
+    "sentiment_output": null,
+    "timestamp": "2025-07-21T12:30:00.000000"
+  },
+  {
+    "id": 2,
+    "input_text": "This product is amazing!",
+    "summary_output": null,
+    "sentiment_output": "POSITIVE",
+    "timestamp": "2025-07-21T12:35:00.000000"
+  }
+]
+Built with:
+Python 3.9+
 
-### Built with:
+FastAPI
 
-  * Python 3.9+
-  * FastAPI
-  * Hugging Face Transformers
-  * Pydantic
-  * Uvicorn
+Hugging Face Transformers
 
------
+Pydantic
 
-### Prerequisites:
+Uvicorn
 
-  * Python 3.9+ installed
-  * Git installed
+SQLAlchemy (NEW in Week 3)
 
------
+SQLite (NEW in Week 3)
 
-### Installation and Running the API:
+Prerequisites
+Python 3.9+ installed
 
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/Aryakatre1/text-summarizer-fastapi.git](https://github.com/Aryakatre1/text-summarizer-fastapi.git)
-    cd text-summarizer-api
-    ```
-2.  **Create and activate a virtual environment:**
-    ```bash
-    python -m venv venv
-    .\venv\Scripts\activate  # For Windows PowerShell
-    # source venv/bin/activate # For Linux/macOS
-    ```
-3.  **Install dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-4.  **Run the API server:**
-    ```bash
-    uvicorn app.main:app --reload
-    ```
-    The API will be accessible at `http://127.0.0.1:8000`.
+Git installed
 
------
+Installation and Running the API:
+Clone the repository:
 
-### Interactive Documentation (Swagger UI):
+Bash
 
-Once the server is running, open your browser and navigate to: `http://127.0.0.1:8000/docs`
-Here you can test both the `/summarize` and `/sentiment` endpoints directly.
+git clone [https://github.com/Aryakatre1/IntelliText-Hub-.git](https://github.com/Aryakatre1/IntelliText-Hub-.git)
+Navigate to the project directory:
 
------
+Bash
 
-### Future Plans for this Project:
+cd IntelliText-Hub-
+Create and activate a virtual environment:
 
-  * Implementing support for batch processing for both summarization and sentiment analysis.
-  * Adding authentication/API key management for secure access.
-  * Exploring different summarization and sentiment models for comparison and performance optimization.
-  * Deploying to a cloud platform (e.g., Google Cloud Run) for public accessibility.
-  * Building a simple frontend web application to consume the API.
+Bash
 
------
+python -m venv venv
+On Windows PowerShell:
 
-### Connect with me:
+Bash
 
-  * **LinkedIn:** [https://www.linkedin.com/in/arya-katre-829b82260](https://www.google.com/search?q=https://www.linkedin.com/in/arya-katre-829b82260)
-  * **Email:** [katrearya459@gmail.com](mailto:katrearya459@gmail.com)
+.\venv\Scripts\activate
+On Linux/macOS:
 
-<!-- end list -->
+Bash
 
-```
-```
+source venv/bin/activate
+Install dependencies:
+
+Bash
+
+pip install -r requirements.txt
+Run the API server:
+
+Bash
+
+uvicorn app.main:app --reload
+The API will be accessible at http://127.0.0.1:8000.
+
+Interactive Documentation (Swagger UI)
+Once the server is running, open your browser and navigate to: http://127.0.0.1:8000/docs
+Here you can test the /summarize, /sentiment, and /history endpoints directly.
+
+Future Plans
+Implementing support for batch processing for both summarization and sentiment analysis.
+
+Adding authentication/API key management for secure access.
+
+Exploring different summarization and sentiment models for comparison and performance optimization.
+
+Deploying to a cloud platform (e.g., Google Cloud Run) for public accessibility.
+
+Building a simple frontend web application to consume the API.
+
+Connect with me
+LinkedIn: https://www.linkedin.com/in/arya-katre-829b82260
+
+Email: katrearya459@gmail.com
